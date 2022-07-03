@@ -16,3 +16,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('Home.home');
 });
+Route::get('/addSong',function(){
+    return view('Song.addSong');
+});
+Route::get('/addArtist',function(){
+    return view('Artist.addArtist');
+});
