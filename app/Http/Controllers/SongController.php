@@ -1,7 +1,10 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Models\users;
+use App\Models\song;
+use App\Models\Artist;
+use App\Models\artist_song;
 use Illuminate\Http\Request;
 
 class SongController extends Controller
@@ -14,6 +17,9 @@ class SongController extends Controller
     public function index()
     {
         //
+        // $artist = Artist::all();
+        // dd($artist);
+        return view('Song.addSong');
     }
 
     /**
@@ -32,9 +38,26 @@ class SongController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $r)
     {
         //
+        // dd('get it',$r['photo']);
+        $file = $r['photo'];
+        $destination = env("UPLOAD_PATH"). DIRECTORY_SEPARATOR .$file->getClientOriginalName();;
+        if(move_uploaded_file($file, $destination)){
+            $path = $destination;
+        }
+        // dd($r->all());
+        $song = new song();
+        $song->Name = $r->song;
+        $song->DOR = $r->date;
+        $song->Image_path = $path;
+        $song->save();
+        $map1 = new artist_song();
+        $map1->A_id = $r->artist;
+        $map1->S_id = $song->id;
+        $map1->save();
+        return redirect('/home');
     }
 
     /**

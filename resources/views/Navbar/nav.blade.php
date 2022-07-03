@@ -20,7 +20,7 @@
         <img src="https://i1.sndcdn.com/avatars-000606604806-j6ghpm-t500x500.jpg" alt="LOGO" height = "50" width = "50">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="/">Home</a>
+          <a class="nav-link active" aria-current="page" href="/home">Home</a>
         </li>
         
       </ul>

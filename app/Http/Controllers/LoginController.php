@@ -1,10 +1,14 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Models\artist;
+use App\Models\users;
+use App\Models\song;
+use App\Models\Artist;
+use App\Models\artist_song;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
-class ArtistController extends Controller
+class LoginController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -13,8 +17,13 @@ class ArtistController extends Controller
      */
     public function index()
     {
-       
-
+        //
+        // dd('Hey');
+        $artist = artist::all();
+        dd($artist);
+        return view('Login.login',['artist'=>$artist]);
+        // if($users)
+        
     }
 
     /**
@@ -22,11 +31,25 @@ class ArtistController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $r)
     {
         //
-        // dd('create');
-        return view('Artist.addArtist');
+        // dd('Get it');
+        $users = Users::where('email',$r->email)->first();
+        // dd($users);
+        if($users == null){
+            $N_user = new Users();
+            $N_user->email = $r->email;
+            $N_user->save(); 
+            $r->session()->put('id',$N_user->id);
+            // dd(session('id'));
+            return redirect('/home');
+        }
+        else{
+            $r->session()->put('id',$users->id);
+            // dd(session('id'));
+            return redirect('/home');
+        }
     }
 
     /**
@@ -35,16 +58,9 @@ class ArtistController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $r)
+    public function store(Request $request)
     {
         //
-        // dd('get', $r->all());
-        $artist = new artist();
-        $artist->Name = $r->name;
-        $artist->DOB = $r->dob;
-        $artist->Bio = $r->bio;
-        $artist->save();
-        return redirect('/home');
     }
 
     /**
@@ -53,9 +69,12 @@ class ArtistController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show()
     {
         //
+        // $artist = DB::table('artist_song')
+        //             ->leftjoin()
+        return view('Home.home',['artist' => $artist]);
     }
 
     /**

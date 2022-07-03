@@ -93,24 +93,16 @@
             </tr>
         </thead>
         <tbody class="table-group-divider">
-            <tr>
-                <th scope="row">1</th>
-                <td>Mark</td>
-                <td>Otto</td>
-                
-            </tr>
-            <tr>
-                <th scope="row">2</th>
-                <td>Jacob</td>
-                <td>Thornton</td>
-                
-            </tr>
-            <tr>
-                <th scope="row">3</th>
-                <td>Larry the Bird</td>
-                <td>@mdo</td>
-                
-            </tr>
+            @if(isset($artist))
+                @foreach($artist as $a)
+                    <tr>
+                        <th scope="row">{{$a->Name}}</th>
+                        <td>{{$a->DOB}}</td>
+                        <td>Song</td>
+                    </tr>
+            @endforeach
+            @endif
+                      
         </tbody>
     </table>
 </body>

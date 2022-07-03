@@ -13,12 +13,16 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('Home.home');
-});
-Route::get('/addSong',function(){
-    return view('Song.addSong');
-});
-Route::get('/addArtist',function(){
-    return view('Artist.addArtist');
-});
+Route::get('/home', 'App\Http\Controllers\LoginController@show');
+
+
+Route::get('/addSong','App\Http\Controllers\SongController@index');
+Route::post('/addSong','App\Http\Controllers\SongController@store');
+
+Route::get('/addArtist','App\Http\Controllers\ArtistController@create');
+Route::post('/addArtist','App\Http\Controllers\ArtistController@store');
+
+
+Route::get('/','App\Http\Controllers\LoginController@index');
+Route::post('/','App\Http\Controllers\LoginController@create');
+
