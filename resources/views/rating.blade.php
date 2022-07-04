@@ -23,7 +23,7 @@
 @include('Navbar.nav')
     <div class="card justify-content-center" style = "margin-top : 40vh;width:30vw;height:20vh;margin-left:30vw;">
             <div class="card-header" style = "background:aqua;">
-                Enter the reting :
+                Enter the rating :
             </div>
             <div class="card-body">
                 <form method = "Post" action = "/rating/{{$data->id}}" id = "rating" style = "width : 50vw;margin : 20px 20px;">
