@@ -45,9 +45,10 @@ class SongController extends Controller
         //
         // dd('get it',$r['photo']);
         $file = $r['photo'];
-        $destination = env("UPLOAD_PATH"). DIRECTORY_SEPARATOR .$file->getClientOriginalName();;
+        
+        $destination = env("UPLOAD_PATH"). DIRECTORY_SEPARATOR .$file->getClientOriginalName();
         if(move_uploaded_file($file, $destination)){
-            $path = $destination;
+            $path = $file->getClientOriginalName();
         }
         // dd($r->all());
         $song = new song();

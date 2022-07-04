@@ -19,6 +19,9 @@
             color:yellow;
             font-size: 50px;
         }
+        body{
+            padding:20px;
+        }
     </style>
 </head>
 <body>

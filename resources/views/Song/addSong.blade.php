@@ -83,7 +83,7 @@
                 alert('Select artist')
             }
             else{
-                alert('submit');
+                // alert('submit');
                 // $('#Song').submit();
                 $("#songsubmit").submit();
             }
