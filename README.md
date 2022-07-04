@@ -16,3 +16,7 @@ Steps
 OR
 there is a database namely 'music.sql', we can import that database.
 5.Now the database is ready, to start the application run 'php artisan serve'.
+
+Screenshot
+--------------------------------------------------------------------------------------
+![s1](https://user-images.githubusercontent.com/86314182/177190052-812ece2b-e259-4c0d-824c-3fbbdc8b6867.png)
