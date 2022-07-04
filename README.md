@@ -1,4 +1,4 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
+<!-- <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
 
 <p align="center">
 <a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
@@ -61,4 +61,20 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 
 ## License
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT). -->
+About
+------------------------------------------------------------------------------------
+This application has been made up of with the following tools:
+    Framework:  Laravel
+    Backend  : PHP
+    Front end : HTML, CSS, JavaScript, Bootstrap
+    Database : My SQL
+
+Steps
+------------------------------------------------------------------------------------
+1. After cloning the project please run 'composer updata'.
+2.Create a database on mySQL, for me it is 'music'.
+3.There are migration files, to migrate run 'php artisan migrate'.
+OR
+there is a database namely '', we can import that database.
+4.Now the database is ready, to start the application run 'php artisan serve'.

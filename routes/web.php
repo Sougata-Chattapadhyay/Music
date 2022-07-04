@@ -26,3 +26,5 @@ Route::post('/addArtist','App\Http\Controllers\ArtistController@store');
 Route::get('/','App\Http\Controllers\LoginController@index');
 Route::post('/','App\Http\Controllers\LoginController@create');
 
+Route::get('/rating/{id}','App\Http\Controllers\SongController@edit');
+Route::post('/rating/{id}','App\Http\Controllers\SongController@update');

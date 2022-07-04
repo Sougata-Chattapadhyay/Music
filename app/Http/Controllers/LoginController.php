@@ -20,7 +20,7 @@ class LoginController extends Controller
         //
         // dd('Hey');
         $artist = artist::all();
-        dd($artist);
+        // dd($artist);
         return view('Login.login',['artist'=>$artist]);
         // if($users)
         
@@ -71,10 +71,36 @@ class LoginController extends Controller
      */
     public function show()
     {
-        //
-        // $artist = DB::table('artist_song')
-        //             ->leftjoin()
-        return view('Home.home',['artist' => $artist]);
+        $artist = artist::all();
+        //group_concat(inspection_and_audit_forms.id)
+        $artist1 = DB::table('artist_song')
+                    ->leftjoin('artist','artist.id' ,"=","artist_song.A_id")
+                    ->leftjoin('song','song.id' ,"=","artist_song.S_id")
+                    ->selectRaw('group_concat(song.Name) as song,artist.id as A_id')
+                    ->groupBy('artist.id')
+                    ->get();
+        // dd($artist1);
+        $mainSong = DB::table('artist_song')
+                    ->leftjoin('artist','artist.id' ,"=","artist_song.A_id")
+                    ->leftjoin('song','song.id' ,"=","artist_song.S_id")
+                    ->leftjoin('rating','rating.S_id' ,"=","artist_song.S_id")
+                    ->select(
+                        'song.*',
+                        'artist.id as a_id',
+                        'artist.name as a_name',
+                        'rating.rating'
+                    )
+                    ->orderBy('rating.rating','DESC')
+                    ->get();
+                    // dd($mainSong);
+                    // $img = 
+        $arr = [];
+        foreach($mainSong as $m){
+            $arr[''.$m->id.''] = $this->getImageBase64($m->Image_path);
+        }
+        // dd($arr);
+
+        return view('Home.home',['artist' => $artist,'song' => $artist1,'mainSong' => $mainSong,'Image' => $arr]);
     }
 
     /**
@@ -86,6 +112,7 @@ class LoginController extends Controller
     public function edit($id)
     {
         //
+        dd('Get it');
     }
 
     /**
@@ -109,5 +136,45 @@ class LoginController extends Controller
     public function destroy($id)
     {
         //
+    }
+    public function getFile($path){
+        try {
+
+            // Log::debug("=========== GET FILE ===========");
+            // Log::debug(print_r($path, true));
+            $imgPath = $path;
+            // Log::info(print_r($imgPath, true));
+            $imgPath = env('UPLOAD_PATH').DIRECTORY_SEPARATOR.($imgPath);
+            return response()->file($imgPath);
+
+        } catch (Exception $e) {
+            report($e);
+        }
+    }
+    public function getImageBase64($imgPath){
+        try {
+
+            // Log::info("getImageBase64 : ".print_r($imgPath, true));
+
+            // Constructing image absolute path
+            $imagePath = env('UPLOAD_PATH').DIRECTORY_SEPARATOR.$imgPath ;
+
+            $type = pathinfo($imagePath, PATHINFO_EXTENSION);
+
+            $arrContextOptions = array(
+                "ssl" => array(
+                    "verify_peer" => false,
+                    "verify_peer_name" => false,
+                ),
+            );
+
+            $avatarData = file_get_contents($imagePath, false, stream_context_create($arrContextOptions));
+            $avatarBase64Data = base64_encode($avatarData);
+            $imageData = 'data:image/' . $type . ';base64,' . $avatarBase64Data;
+
+            return $imageData;
+        } catch (Exception $e) {
+            report($e);
+        }
     }
 }

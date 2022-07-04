@@ -6,6 +6,7 @@ use App\Models\song;
 use App\Models\Artist;
 use App\Models\artist_song;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class SongController extends Controller
 {
@@ -17,9 +18,10 @@ class SongController extends Controller
     public function index()
     {
         //
-        // $artist = Artist::all();
+        $artist = Artist::all();
         // dd($artist);
-        return view('Song.addSong');
+        
+        return view('Song.addSong',['artist'=>$artist]);
     }
 
     /**
@@ -80,6 +82,14 @@ class SongController extends Controller
     public function edit($id)
     {
         //
+        // dd('Get it');
+        $data = DB::table('song')->where('song.id',$id)
+                ->leftjoin('artist_song','song.id','=','artist_song.S_id')
+                ->select('song.*','artist_song.S_id as s_id','artist_song.A_id as a_id')
+                ->get();
+        // dd($data[0]->id);
+        return view('rating',['data' => $data[0]]);
+
     }
 
     /**
@@ -89,9 +99,12 @@ class SongController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $r, $id)
     {
         //
+        // dd($r->rnum,$id);
+        DB::table('rating')->insert(['U_id' => session('id'),'S_id' => $r->s_id,'rating' => $r->rnum]);
+        return redirect('/home');
     }
 
     /**
